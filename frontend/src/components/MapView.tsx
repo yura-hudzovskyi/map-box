@@ -6,6 +6,8 @@ import { MAP_CONFIG } from '../config';
 import type { MapMarker, Score } from '../domain/marker';
 import { MapMarkerFactory } from '../map/MapMarkerFactory';
 import { MarkerZoom } from '../map/MarkerZoom';
+import type { MapCoordinates } from '../services/LocationService';
+import { LocationControl } from './LocationControl';
 
 interface MapViewProps {
   markers: MapMarker[];
@@ -88,11 +90,18 @@ export function MapView({
     };
   }, [markers, onMove, onSelect, selectedId]);
 
+  const showLocation = ({ longitude, latitude }: MapCoordinates) => {
+    mapRef.current?.flyTo({ center: [longitude, latitude], zoom: 12 });
+  };
+
   return (
-    <div
-      aria-label={`Interactive map. New markers use score ${createScore}.`}
-      className={isCreating ? 'map is-creating' : 'map'}
-      ref={containerRef}
-    />
+    <>
+      <div
+        aria-label={`Interactive map. New markers use score ${createScore}.`}
+        className={isCreating ? 'map is-creating' : 'map'}
+        ref={containerRef}
+      />
+      <LocationControl onLocate={showLocation} />
+    </>
   );
 }

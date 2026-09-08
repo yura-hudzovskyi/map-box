@@ -444,6 +444,74 @@ button {
   box-shadow: 2px 2px 0 rgba(20, 35, 43, 0.1) !important;
 }
 
+.location-control {
+  position: absolute;
+  z-index: 1;
+  right: 12px;
+  bottom: 116px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+}
+
+.location-button,
+.location-message {
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--surface);
+  box-shadow: 2px 2px 0 rgba(20, 35, 43, 0.1);
+}
+
+.location-button {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.location-button:hover:not(:disabled) {
+  border-color: var(--ink);
+  background: var(--paper);
+}
+
+.location-button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.location-button:focus-visible {
+  outline: 3px solid #0b6cff;
+  outline-offset: 3px;
+}
+
+.location-icon {
+  width: 13px;
+  height: 13px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 3px var(--surface);
+  background: currentColor;
+}
+
+.location-message {
+  max-width: 220px;
+  padding: 8px 10px;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.location-message.error {
+  border-color: #e4a7a2;
+  color: var(--danger);
+}
+
 .saving-indicator,
 .toast {
   position: absolute;
