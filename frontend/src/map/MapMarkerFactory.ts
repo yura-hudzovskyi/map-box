@@ -17,7 +17,12 @@ export class MapMarkerFactory {
     events: MarkerEvents,
   ): mapboxgl.Marker {
     const element = MapMarkerFactory.createElement(data, selected, events.onSelect);
-    const marker = new mapboxgl.Marker({ element, draggable: true })
+    const marker = new mapboxgl.Marker({
+      element,
+      draggable: true,
+      anchor: 'center',
+      offset: [0, 0],
+    })
       .setLngLat([data.longitude, data.latitude])
       .addTo(map);
 
@@ -33,19 +38,25 @@ export class MapMarkerFactory {
     marker: MapMarker,
     selected: boolean,
     onSelect: (id: string) => void,
-  ): HTMLButtonElement {
-    const element = document.createElement('button');
+  ): HTMLDivElement {
+    const element = document.createElement('div');
+    const button = document.createElement('button');
 
-    element.className = selected ? 'map-marker is-selected' : 'map-marker';
-    element.type = 'button';
-    element.textContent = String(marker.score);
-    element.title = `Score ${marker.score}. Drag to move.`;
-    element.style.setProperty('--marker-color', Scores.color(marker.score));
-    element.style.setProperty('--marker-foreground', Scores.foreground(marker.score));
-    element.addEventListener('click', (event) => {
+    element.className = 'map-marker-anchor';
+    button.className = selected ? 'map-marker is-selected' : 'map-marker';
+    button.type = 'button';
+    button.textContent = String(marker.score);
+    button.title = `Score ${marker.score}. Drag to move.`;
+    button.style.setProperty('--marker-color', Scores.color(marker.score));
+    button.style.setProperty(
+      '--marker-foreground',
+      Scores.foreground(marker.score),
+    );
+    button.addEventListener('click', (event) => {
       event.stopPropagation();
       onSelect(marker.id);
     });
+    element.append(button);
 
     return element;
   }

@@ -360,9 +360,26 @@ button {
   font-size: 12px;
 }
 
+.map-marker-anchor {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+}
+
+.map-marker-anchor::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--ink), var(--ink)) 50% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--ink), var(--ink)) 0 50% / 100% 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
 .map-marker {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   display: grid;
   width: 32px;
   height: 32px;
@@ -376,24 +393,6 @@ button {
   cursor: grab;
   font-size: 12px;
   font-weight: 700;
-}
-
-.map-marker::before,
-.map-marker::after {
-  position: absolute;
-  z-index: -1;
-  background: var(--ink);
-  content: "";
-}
-
-.map-marker::before {
-  width: 42px;
-  height: 1px;
-}
-
-.map-marker::after {
-  width: 1px;
-  height: 42px;
 }
 
 .map-marker.is-selected {
