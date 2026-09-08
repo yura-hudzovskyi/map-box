@@ -14,7 +14,7 @@ A small SPA for adding, editing, moving, importing, and exporting scored map mar
 
 Markers are intentionally stored in browser memory because the task does not require a database.
 
-## Run locally
+## First-time setup
 
 Backend (Python 3.10+):
 
@@ -22,20 +22,27 @@ Backend (Python 3.10+):
 cd backend
 py -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
-.venv\Scripts\python -m uvicorn app.main:app --reload --port 8000
 ```
 
-Frontend (Node.js 20+), in a second terminal:
+Frontend (Node.js 20+):
 
 ```powershell
 cd frontend
 Copy-Item .env.example .env
 # Add your Mapbox public token to .env
 npm install
-npm run dev
 ```
 
-Open <http://localhost:5173>. Vite proxies `/api` requests to the Python server.
+## Start
+
+From the project root:
+
+```powershell
+.\start.cmd
+```
+
+The script starts both servers and opens <http://localhost:5173>. Close the two
+server terminals to stop the project.
 
 ## Interaction
 
