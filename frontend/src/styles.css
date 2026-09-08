@@ -365,19 +365,28 @@ button {
   width: 44px;
   height: 44px;
   place-items: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: grab;
 }
 
 .map-marker-anchor::before {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%) scale(var(--marker-scale, 1));
   background:
     linear-gradient(var(--ink), var(--ink)) 50% 0 / 1px 100% no-repeat,
     linear-gradient(var(--ink), var(--ink)) 0 50% / 100% 1px no-repeat;
   content: "";
+  opacity: var(--marker-crosshair-opacity, 1);
   pointer-events: none;
 }
 
-.map-marker {
+.map-marker-visual {
   position: relative;
   z-index: 1;
   display: grid;
@@ -390,22 +399,36 @@ button {
   background: var(--marker-color);
   box-shadow: 0 3px 7px rgba(20, 35, 43, 0.28);
   color: var(--marker-foreground);
-  cursor: grab;
   font-size: 12px;
   font-weight: 700;
+  transform: scale(var(--marker-scale, 1));
+  transform-origin: center;
+  will-change: transform;
 }
 
-.map-marker.is-selected {
+.map-marker-score {
+  opacity: var(--marker-score-opacity, 1);
+}
+
+.map-marker-anchor.is-selected .map-marker-visual {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
 
-.map-marker:focus-visible {
+.map-marker-anchor.is-selected .map-marker-score {
+  opacity: 1;
+}
+
+.map-marker-anchor:focus-visible {
+  outline: none;
+}
+
+.map-marker-anchor:focus-visible .map-marker-visual {
   outline: 3px solid #0b6cff;
   outline-offset: 3px;
 }
 
-.map-marker:active {
+.map-marker-anchor:active {
   cursor: grabbing;
 }
 

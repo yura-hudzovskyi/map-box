@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { useEffect, useRef } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-import { MAP_CONFIG } from "../config";
-import type { MapMarker, Score } from "../domain/marker";
-import { MapMarkerFactory } from "../map/MapMarkerFactory";
+import { MAP_CONFIG } from '../config';
+import type { MapMarker, Score } from '../domain/marker';
+import { MapMarkerFactory } from '../map/MapMarkerFactory';
+import { MarkerZoom } from '../map/MarkerZoom';
 
 interface MapViewProps {
   markers: MapMarker[];
@@ -40,10 +41,15 @@ export function MapView({
       zoom: MAP_CONFIG.zoom,
     });
 
-    map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+    const updateMarkerZoom = () => MarkerZoom.apply(container, map.getZoom());
+
+    updateMarkerZoom();
+    map.on('zoom', updateMarkerZoom);
+    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     mapRef.current = map;
 
     return () => {
+      map.off('zoom', updateMarkerZoom);
       map.remove();
       mapRef.current = null;
     };
@@ -60,9 +66,9 @@ export function MapView({
       onCreate(lngLat.lng, lngLat.lat, createScore);
     };
 
-    map.on("click", handleClick);
+    map.on('click', handleClick);
     return () => {
-      map.off("click", handleClick);
+      map.off('click', handleClick);
     };
   }, [createScore, isCreating, onCreate, onSelect]);
 
@@ -85,7 +91,7 @@ export function MapView({
   return (
     <div
       aria-label={`Interactive map. New markers use score ${createScore}.`}
-      className={isCreating ? "map is-creating" : "map"}
+      className={isCreating ? 'map is-creating' : 'map'}
       ref={containerRef}
     />
   );

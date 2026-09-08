@@ -38,25 +38,31 @@ export class MapMarkerFactory {
     marker: MapMarker,
     selected: boolean,
     onSelect: (id: string) => void,
-  ): HTMLDivElement {
-    const element = document.createElement('div');
-    const button = document.createElement('button');
+  ): HTMLButtonElement {
+    const element = document.createElement('button');
+    const visual = document.createElement('span');
+    const score = document.createElement('span');
 
-    element.className = 'map-marker-anchor';
-    button.className = selected ? 'map-marker is-selected' : 'map-marker';
-    button.type = 'button';
-    button.textContent = String(marker.score);
-    button.title = `Score ${marker.score}. Drag to move.`;
-    button.style.setProperty('--marker-color', Scores.color(marker.score));
-    button.style.setProperty(
+    element.className = selected
+      ? 'map-marker-anchor is-selected'
+      : 'map-marker-anchor';
+    element.type = 'button';
+    element.title = `Score ${marker.score}. Drag to move.`;
+    element.ariaLabel = `Marker with score ${marker.score}`;
+    visual.className = 'map-marker-visual';
+    visual.style.setProperty('--marker-color', Scores.color(marker.score));
+    visual.style.setProperty(
       '--marker-foreground',
       Scores.foreground(marker.score),
     );
-    button.addEventListener('click', (event) => {
+    score.className = 'map-marker-score';
+    score.textContent = String(marker.score);
+    element.addEventListener('click', (event) => {
       event.stopPropagation();
       onSelect(marker.id);
     });
-    element.append(button);
+    visual.append(score);
+    element.append(visual);
 
     return element;
   }
