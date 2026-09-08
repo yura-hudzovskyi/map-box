@@ -448,7 +448,7 @@ button {
   position: absolute;
   z-index: 1;
   right: 12px;
-  bottom: 116px;
+  bottom: 126px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
