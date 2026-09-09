@@ -35,14 +35,26 @@ npm install
 
 ## Start
 
-From the project root:
+From the project root, use the script for your shell.
+
+PowerShell or Command Prompt:
 
 ```powershell
 .\start.cmd
 ```
 
-The script starts both servers and opens <http://localhost:5173>. Close the two
-server terminals to stop the project.
+Bash (Git Bash, WSL, Linux, or macOS):
+
+```bash
+bash ./start.sh
+```
+
+`bash ./start.cmd` is also supported and delegates to `start.sh`.
+
+Both scripts start the API and UI, then open <http://localhost:5173>. With
+`start.cmd`, close the two server terminals to stop the project. With `start.sh`,
+press `Ctrl+C` in the current terminal. Pass `--no-browser` to the Bash script
+when you do not want it to open the page automatically.
 
 ## Interaction
 

@@ -1,3 +1,4 @@
+:; exec bash "$(dirname -- "$0")/start.sh" "$@"
 @echo off
 setlocal
 
