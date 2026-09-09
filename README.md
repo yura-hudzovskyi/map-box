@@ -46,9 +46,26 @@ server terminals to stop the project.
 
 ## Interaction
 
-1. Choose a score in the top-left panel.
-2. Click the map to create a marker.
-3. Click a marker to change its score or delete it.
-4. Drag a marker to change its position.
+1. Optionally select **Show my city** and allow browser location access.
+2. Choose a score in the top-left panel.
+3. Click the map to create a marker.
+4. Click a marker to change its score or delete it.
+5. Drag a marker to change its position.
 
 Every third create request fails by design. A failed marker is not added to the map.
+
+## Verify
+
+Frontend:
+
+```powershell
+cd frontend
+npm run check
+```
+
+Backend:
+
+```powershell
+cd backend
+.venv\Scripts\python -m pytest
+```

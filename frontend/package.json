@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "test": "vitest run",
     "build": "tsc --noEmit && vite build",
-    "typecheck": "tsc --noEmit --pretty false"
+    "typecheck": "tsc --noEmit --pretty false",
+    "check": "npm run test && npm run build"
   },
   "dependencies": {
     "@fontsource/barlow": "5.3.0",
@@ -19,6 +21,7 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
     "typescript": "7.0.2",
-    "vite": "8.2.2"
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
   }
 }

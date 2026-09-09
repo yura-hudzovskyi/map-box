@@ -3,7 +3,6 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.services import MarkerService
 
-
 client = TestClient(app)
 VALID_MARKER = {"longitude": 30.5234, "latitude": 50.4501, "score": 5}
 
@@ -24,4 +23,3 @@ def test_invalid_score_is_rejected() -> None:
     response = client.post("/api/markers", json={**VALID_MARKER, "score": 6})
 
     assert response.status_code == 422
-

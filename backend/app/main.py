@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import Marker, MarkerCreate
 from app.services import MarkerCreationRejected, MarkerService
 
-
 app = FastAPI(title="Mapbox marker API")
 app.add_middleware(
     CORSMiddleware,

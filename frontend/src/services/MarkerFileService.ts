@@ -6,6 +6,9 @@ interface MarkerFile {
 }
 
 export class MarkerFileService {
+  private static readonly INVALID_FILE_MESSAGE =
+    'The file does not contain valid markers.';
+
   private constructor() {}
 
   static download(markers: MapMarker[]): void {
@@ -22,10 +25,10 @@ export class MarkerFileService {
   }
 
   static async read(file: File): Promise<MapMarker[]> {
-    const content = JSON.parse(await file.text()) as unknown;
+    const content = MarkerFileService.parseContent(await file.text());
 
     if (!MarkerFileService.isMarkerFile(content)) {
-      throw new Error('The file does not contain valid markers.');
+      throw new Error(MarkerFileService.INVALID_FILE_MESSAGE);
     }
 
     const uniqueIds = new Set(content.markers.map(({ id }) => id));
@@ -34,6 +37,14 @@ export class MarkerFileService {
     }
 
     return content.markers;
+  }
+
+  private static parseContent(content: string): unknown {
+    try {
+      return JSON.parse(content) as unknown;
+    } catch (error) {
+      throw new Error(MarkerFileService.INVALID_FILE_MESSAGE, { cause: error });
+    }
   }
 
   private static isMarkerFile(value: unknown): value is MarkerFile {
@@ -64,4 +75,3 @@ export class MarkerFileService {
     );
   }
 }
-

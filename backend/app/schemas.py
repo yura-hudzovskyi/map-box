@@ -9,4 +9,3 @@ class MarkerCreate(BaseModel):
 
 class Marker(MarkerCreate):
     id: str
-

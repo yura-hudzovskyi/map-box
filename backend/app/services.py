@@ -29,4 +29,3 @@ class MarkerService:
     def reset(cls) -> None:
         with cls._lock:
             cls._request_count = 0
-
