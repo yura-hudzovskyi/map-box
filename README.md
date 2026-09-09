@@ -10,7 +10,7 @@ A small SPA for adding, editing, moving, importing, and exporting scored map mar
 - `frontend/src/components` contains focused UI components.
 - `frontend/src/map` isolates Mapbox marker creation.
 - `backend/app/main.py` contains only the HTTP layer.
-- `backend/app/services.py` creates markers and rejects every third request.
+- `backend/app/services.py` creates markers and randomly rejects 30% of requests.
 
 Markers are intentionally stored in browser memory because the task does not require a database.
 
@@ -64,7 +64,7 @@ when you do not want it to open the page automatically.
 4. Click a marker to change its score or delete it.
 5. Drag a marker to change its position.
 
-Every third create request fails by design. A failed marker is not added to the map.
+Each create request has a 30% chance to fail. A failed marker is not added to the map.
 
 ## Verify
 
