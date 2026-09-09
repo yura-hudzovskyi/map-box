@@ -1,22 +1,29 @@
-# Mapbox marker editor
+# Map marks
 
-A small SPA for adding, editing, moving, importing, and exporting scored map markers.
+A small SPA for placing and scoring markers on an interactive Mapbox map.
 
-## Architecture
+![Map marks interface](docs/app-preview.jpg)
 
-- `frontend/src/domain` contains marker types and score definitions.
-- `frontend/src/services` contains the static HTTP and JSON services.
-- `frontend/src/hooks/useMarkers.ts` owns marker state and actions.
-- `frontend/src/components` contains focused UI components.
-- `frontend/src/map` isolates Mapbox marker creation.
-- `backend/app/main.py` contains only the HTTP layer.
-- `backend/app/services.py` creates markers and randomly rejects 30% of requests.
+## Features
 
-Markers are intentionally stored in browser memory because the task does not require a database.
+- Add markers by clicking the map.
+- Assign scores from `0` to `5` with distinct colors.
+- Edit, drag, and delete existing markers.
+- View live totals for every score.
+- Locate the user's city with permission.
+- Scale marker details with the map zoom.
+- Import and export markers as JSON.
+- Simulate API failures with an independent 30% chance.
 
-## First-time setup
+## Stack
 
-Backend (Python 3.10+):
+- **Frontend:** React, TypeScript, Mapbox GL JS
+- **Backend:** FastAPI, Python
+- **Tests:** Vitest, pytest
+
+## Setup
+
+Backend — Python 3.10+:
 
 ```powershell
 cd backend
@@ -24,7 +31,7 @@ py -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 ```
 
-Frontend (Node.js 20+):
+Frontend — Node.js 20+:
 
 ```powershell
 cd frontend
@@ -33,51 +40,28 @@ Copy-Item .env.example .env
 npm install
 ```
 
-## Start
+## Run
 
-From the project root, use the script for your shell.
-
-PowerShell or Command Prompt:
+Windows:
 
 ```powershell
 .\start.cmd
 ```
 
-Bash (Git Bash, WSL, Linux, or macOS):
+Bash:
 
 ```bash
 bash ./start.sh
 ```
 
-`bash ./start.cmd` is also supported and delegates to `start.sh`.
+The app opens at <http://localhost:5173>.
 
-Both scripts start the API and UI, then open <http://localhost:5173>. With
-`start.cmd`, close the two server terminals to stop the project. With `start.sh`,
-press `Ctrl+C` in the current terminal. Pass `--no-browser` to the Bash script
-when you do not want it to open the page automatically.
-
-## Interaction
-
-1. Optionally select **Show my city** and allow browser location access.
-2. Choose a score in the top-left panel.
-3. Click the map to create a marker.
-4. Click a marker to change its score or delete it.
-5. Drag a marker to change its position.
-
-Each create request has a 30% chance to fail. A failed marker is not added to the map.
-
-## Verify
-
-Frontend:
+## Checks
 
 ```powershell
 cd frontend
 npm run check
-```
 
-Backend:
-
-```powershell
-cd backend
+cd ../backend
 .venv\Scripts\python -m pytest
 ```
